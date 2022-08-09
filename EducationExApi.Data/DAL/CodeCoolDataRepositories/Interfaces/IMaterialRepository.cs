@@ -2,6 +2,6 @@
 {
     public interface IMaterialRepository : IBaseRepository<Material>
     {
-        Task<Material> GetByIdAsync(int id);
+        Task<Material> GetElementByIdAsync(int id);
     }
 }

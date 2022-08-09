@@ -1,4 +1,6 @@
-﻿namespace EducationExApi.Controllers
+﻿using EducationExApi.DTO.Material;
+
+namespace EducationExApi.Controllers
 {
     [Route("api/materials")]
     [ApiController]
@@ -38,6 +40,38 @@
             }
             _logger.LogInformation(Ok().StatusCode.ToString());
             return Ok(material);
+        }
+        [SwaggerOperation(Summary = "Add new material")]
+        [HttpPost]
+        public async Task<IActionResult> AddMaterialAsync(MaterialCreateDTO materialCreateDTO)
+        {
+            var newMaterial = await _materialService.AddNewElementAsync(materialCreateDTO);
+            _logger.LogInformation(Ok().StatusCode.ToString());
+            return Ok(newMaterial);
+        }
+        [SwaggerOperation(Summary = "Delete material by id")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteByIdAsync(int id)
+        {
+            await _materialService.DeleteByIdAsync(id);
+            _logger.LogInformation(NoContent().StatusCode.ToString());
+            return NoContent();
+        }
+
+        [SwaggerOperation(Summary = "Edit specific material")]
+        [HttpPost("{id}")]
+        public async Task<IActionResult> EditAsync(int id, MaterialUpdateDTO materialDTO)
+        {
+            await _materialService.EditMaterialAsync(id, materialDTO);
+            _logger.LogInformation(NoContent().StatusCode.ToString());
+            return NoContent();
+        }
+        [SwaggerOperation(Summary = "Get materials with average above 5 by author id")]
+        [HttpGet("{id}/materials/{autorId}")]
+        public async Task<IEnumerable<MaterialReadDTO>> GetMaterialsAverageAbove5ByAuthorIdAsync(int id)
+        {
+            var materialsRateAbove5 = _materialService.GetMaterialsAverageAbove5ByAuthorIdAsync(id);
+
         }
     }
 }
