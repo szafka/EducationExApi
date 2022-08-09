@@ -1,4 +1,7 @@
-﻿namespace EducationExApi
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Serialization;
+namespace EducationExApi
 {
     public static class Configuration
     {
@@ -13,7 +16,10 @@
             });
             var mapper = mapConfig.CreateMapper();
             services.AddSingleton(mapper);
+        }
 
+        public static void AddScopedConfiguration(this IServiceCollection services)
+        {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IMaterialTypeRepository, MaterialTypeRepository>();
@@ -23,6 +29,20 @@
             services.AddScoped<IMaterialTypeService, MaterialTypeService>();
             services.AddScoped<IMaterialService, MaterialService>();
             services.AddScoped<IReviewService, ReviewService>();
+        }
+        public static void AddNewtonsoftJson(this IServiceCollection services)
+        {
+            services.AddControllers().AddNewtonsoftJson(s => {
+                s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
+        }
+
+        public static void AddCorsPolicy(this IServiceCollection service)
+        {
+            service.AddCors(p => p.AddPolicy("default", builder =>
+            {
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            }));
         }
     }
 }
