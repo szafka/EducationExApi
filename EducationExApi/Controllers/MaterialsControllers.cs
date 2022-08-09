@@ -2,6 +2,8 @@
 
 namespace EducationExApi.Controllers
 {
+    [Authorize]
+    [EnableCors("corsapp")]
     [Route("api/materials")]
     [ApiController]
     public class MaterialsControllers : ControllerBase
@@ -60,7 +62,7 @@ namespace EducationExApi.Controllers
         }
 
         [SwaggerOperation(Summary = "Edit specific material")]
-        [HttpPost("{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> EditAsync(int id, MaterialUpdateDTO materialDTO)
         {
             await _materialService.EditMaterialAsync(id, materialDTO);

@@ -12,3 +12,5 @@ global using EducationExApi.Data.DAL.CodeCoolDataRepositories;
 global using EducationExApi.Data.DAL.CodeCoolDataRepositories.Interfaces;
 global using EducationExApi.Services;
 global using Swashbuckle.AspNetCore.Annotations;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Cors;

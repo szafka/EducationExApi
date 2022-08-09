@@ -7,7 +7,9 @@
         [MaxLength(50)]
         public string ReviewText { get; set; }
         [Required]
-        public string Material { get; set; }
+        public int MaterialId { get; set; }
+        [Required]
+        public int AuthorId { get; set; }
         [Required]
         public int Rate { get; set; }
     }

@@ -1,11 +1,9 @@
 ﻿
 
-
-
 namespace EducationExApi.Controllers
 {
-    //[Authorize]
-    //[EnableCors("corsapp")]
+    [Authorize]
+    [EnableCors("corsapp")]
     [Route("api/authors")]
     [ApiController]
     public class AuthorsControllers : ControllerBase

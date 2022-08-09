@@ -2,6 +2,8 @@
 
 namespace EducationExApi.Controllers
 {
+    [Authorize]
+    [EnableCors("corsapp")]
     [Route("api/reviews")]
     [ApiController]
     public class ReviewsControllers : ControllerBase
@@ -58,7 +60,7 @@ namespace EducationExApi.Controllers
         }
 
         [SwaggerOperation(Summary = "Edit specific review")]
-        [HttpPost("{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> EditAsync(int id, ReviewUpdateDTO reviewDTO)
         {
             await _reviewService.EditReviewlAsync(id, reviewDTO);

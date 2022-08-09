@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.JsonPatch;
 
 namespace EducationExApi.Controllers
 {
+    [Authorize]
+    [EnableCors("corsapp")]
     [Route("api/materialTypes")]
     [ApiController]
     public class MaterialTypesController : ControllerBase
