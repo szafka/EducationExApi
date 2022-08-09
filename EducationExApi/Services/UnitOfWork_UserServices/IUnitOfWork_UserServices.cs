@@ -5,5 +5,7 @@
         IMaterialTypeService MterialTypes { get; }
         IMaterialService MaterialService { get; }
         IAuthorService AuthorService { get; }
+        IMaterialTypeService MaterialTypeService { get; }
+        IReviewService ReviewService { get; }
     }
 }

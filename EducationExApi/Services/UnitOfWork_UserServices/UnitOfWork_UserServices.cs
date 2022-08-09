@@ -5,11 +5,15 @@
         public IMaterialTypeService MterialTypes { get; set; }
         public IMaterialService MaterialService { get; set; }
         public IAuthorService AuthorService { get; set; }
-        public UnitOfWork_UserServices(IMaterialTypeService mterialTypes, IMaterialService materialService, IAuthorService authorService)
+        public IMaterialTypeService MaterialTypeService { get; set; }
+        public IReviewService ReviewService { get; set; }
+        public UnitOfWork_UserServices(IMaterialTypeService mterialTypes, IMaterialService materialService, IAuthorService authorService, IMaterialTypeService materialTypeService, IReviewService reviewService)
         {
             MterialTypes = mterialTypes;
             MaterialService = materialService;
             AuthorService = authorService;
+            MaterialTypeService = materialTypeService;
+            ReviewService = reviewService;
         }
     }
 }
