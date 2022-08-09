@@ -13,8 +13,7 @@ namespace EducationExApi.Controllers
             _materialService = materialService;
             _logger = logger;
         }
-        //CRUD
-        //materials by author id
+
         [SwaggerOperation(Summary = "Get all materials list")]
         [HttpGet]
         public async Task<IActionResult> GetAllMaterialsAsync()
@@ -28,6 +27,7 @@ namespace EducationExApi.Controllers
             _logger.LogInformation(Ok().StatusCode.ToString());
             return Ok(materials);
         }
+
         [SwaggerOperation(Summary = "Get material by id")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMaterialById(int id)
@@ -41,6 +41,7 @@ namespace EducationExApi.Controllers
             _logger.LogInformation(Ok().StatusCode.ToString());
             return Ok(material);
         }
+
         [SwaggerOperation(Summary = "Add new material")]
         [HttpPost]
         public async Task<IActionResult> AddMaterialAsync(MaterialCreateDTO materialCreateDTO)

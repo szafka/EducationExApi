@@ -2,5 +2,13 @@
 {
     public class ReviewCreateDTO
     {
+        public int ReviewId { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string ReviewText { get; set; }
+        [Required]
+        public string Material { get; set; }
+        [Required]
+        public int Rate { get; set; }
     }
 }

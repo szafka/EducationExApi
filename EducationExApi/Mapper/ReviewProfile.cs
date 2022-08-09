@@ -6,7 +6,8 @@ namespace EducationExApi.Mapper
     {
         public ReviewProfile()
         {
-            CreateMap<Review, ReviewReadDTO>();
+            CreateMap<Review, ReviewReadDTO>()
+                .ForMember(m => m.Material, opt => opt.MapFrom(m => m.Material));
             CreateMap<ReviewCreateDTO, Review>();
             CreateMap<ReviewUpdateDTO, Review>();
         }

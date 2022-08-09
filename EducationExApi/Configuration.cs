@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using EducationExApi.Data.DAL.UserRepositories;
+using EducationExApi.Data.DAL.UserRepositories.Interfaces;
+using EducationExApi.Services.UnitOfWork_UserServices;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 namespace EducationExApi
@@ -13,6 +16,7 @@ namespace EducationExApi
                 c.AddProfile(new MaterialProfile());
                 c.AddProfile(new MaterialTypeProfile());
                 c.AddProfile(new ReviewProfile());
+                c.AddProfile(new UserAdminProfile());
             });
             var mapper = mapConfig.CreateMapper();
             services.AddSingleton(mapper);
@@ -21,6 +25,7 @@ namespace EducationExApi
         public static void AddScopedConfiguration(this IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork_UserServices, UnitOfWork_UserServices>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IMaterialTypeRepository, MaterialTypeRepository>();
             services.AddScoped<IMaterialRepository, MaterialRepository>();
@@ -29,6 +34,8 @@ namespace EducationExApi
             services.AddScoped<IMaterialTypeService, MaterialTypeService>();
             services.AddScoped<IMaterialService, MaterialService>();
             services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<IUserAdminService, UserAdminService>();
+            services.AddScoped<IAdminRepository, AdminRepository>();
         }
         public static void AddNewtonsoftJson(this IServiceCollection services)
         {

@@ -35,7 +35,7 @@ namespace EducationExApi.Services
         public async Task<IEnumerable<ReviewReadDTO>> GetAllReviewAsync()
         {
             var reviews = await _unitOfWork.Reviews.GetAllAsync();
-            return _mapper.Map<IEnumerable<ReviewReadDTO>>(reviews);
+            return _mapper.Map<IEnumerable<Review>, IEnumerable<ReviewReadDTO>>(reviews);
         }
 
         public async Task<ReviewReadDTO> GetElementByIdAsync(int id)

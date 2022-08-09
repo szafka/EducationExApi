@@ -35,7 +35,7 @@ namespace EducationExApi.Services
         public async Task<IEnumerable<MaterialReadDTO>> GetAllMaterialAsync()
         {
             var materials = await _unitOfWork.Materials.GetAllAsync();
-            return _mapper.Map<IEnumerable<MaterialReadDTO>>(materials);
+            return _mapper.Map<IEnumerable<Material>, IEnumerable<MaterialReadDTO>>(materials.ToList());
         }
 
         public async Task<MaterialReadDTO> GetElementByIdAsync(int id)

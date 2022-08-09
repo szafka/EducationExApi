@@ -27,7 +27,7 @@ namespace EducationExApi.Services
         public async Task<IEnumerable<AuthorReadDTO>> GetAllAuthorsAsync()
         {
             var authors = await _unitOfWork.Authors.GetAllAsync();
-            return _mapper.Map<IEnumerable<AuthorReadDTO>>(authors);
+            return _mapper.Map<IEnumerable<Author>, IEnumerable<AuthorReadDTO>>(authors);
         }
 
         public async Task<AuthorReadDTO> GetAuthorByIdAsync(int id)

@@ -2,5 +2,6 @@
 {
     public class ReviewDeleteDTO
     {
+        public int ReviewId { get; set; }
     }
 }

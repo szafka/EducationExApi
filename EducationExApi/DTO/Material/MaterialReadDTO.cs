@@ -4,11 +4,13 @@ namespace EducationExApi.DTO.Material
 {
     public class MaterialReadDTO
     {
-        public string? Title { get; set; }
-        public string? Description { get; set; }
-        public string? Location { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string MaterialType { get; set; }
+        public string Author { get; set; }
+        public string Location { get; set; }
         [Required]
         [Column(TypeName = "date")]
-        public DateOnly? PublicationDate { get; set; }
+        public DateTime? PublicationDate { get; set; }
     }
 }
