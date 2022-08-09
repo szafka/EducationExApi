@@ -2,5 +2,6 @@
 {
     public interface IMaterialRepository : IBaseRepository<Material>
     {
+        Task<Material> GetByIdAsync(int id);
     }
 }
