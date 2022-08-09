@@ -1,5 +1,7 @@
 ﻿
 
+
+
 namespace EducationExApi.Controllers
 {
     //[Authorize]
@@ -15,7 +17,7 @@ namespace EducationExApi.Controllers
             _authorService = authorService;
             _logger = logger;
         }
-
+        [SwaggerOperation(Summary = "Get all authors")]
         [HttpGet]
         public async Task<IActionResult> GetAllAuthorsAsync()
         {
@@ -28,5 +30,32 @@ namespace EducationExApi.Controllers
             _logger.LogInformation(Ok().StatusCode.ToString());
             return Ok(authors);
         }
+        [SwaggerOperation(Summary = "Get author by id")]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAuthorByIdAsync(int id)
+        {
+            var author = await _authorService.GetAuthorByIdAsync(id);
+            if (author == null)
+            {
+                _logger.LogInformation(NotFound().StatusCode.ToString());
+                return NotFound();
+            }
+            _logger.LogInformation(Ok().StatusCode.ToString());
+            return Ok(author);
+        }
+        //[SwaggerOperation(Summary = "Get author with the most materials")]
+        //[HttpGet]
+        //public async Task<IActionResult> GetAuthorMostMaterialsAsync()
+        //{
+        //    var author = _authorService.GetAuthorWithTheHighestNumbereOfMaterialsAsync();
+        //    if (author == null)
+        //    {
+        //        _logger.LogInformation(NotFound().StatusCode.ToString());
+        //        return NotFound();
+        //    }
+        //    _logger.LogInformation(Ok().StatusCode.ToString());
+        //    return Ok(author);
+        //}
+
     }
 }
