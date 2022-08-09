@@ -8,6 +8,6 @@
         {
             _context = context;
         }
-        public async Task GetElementByIdAsync(int id) => await _context.MaterialTypes.FirstOrDefaultAsync(a => a.TypeId == id);
+        public async Task GetElementByIdAsync(int id) => await _context.MaterialTypes.FirstOrDefaultAsync(a => a.Id == id);
     }
 }

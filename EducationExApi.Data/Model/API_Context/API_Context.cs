@@ -24,7 +24,6 @@ namespace EducationExApi.Data.Model.API_Context
             modelBuilder.Entity<Material>()
                         .Property(p => p.PublicationDate)
                         .HasColumnType("date");
-
             modelBuilder.SeedDatabase();
         }
     }
