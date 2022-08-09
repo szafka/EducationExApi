@@ -2,7 +2,7 @@
 
 namespace EducationExApi.Data.Model.UsersModel
 {
-    public class Admin : BaseUser
+    public class AdminReadDTO : BaseUser
     {
     }
 }
