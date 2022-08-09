@@ -1,0 +1,13 @@
+﻿global using EducationExApi.Data.Model.API_Context;
+global using Microsoft.EntityFrameworkCore;
+global using System.ComponentModel.DataAnnotations;
+global using Microsoft.AspNetCore.Mvc;
+global using EducationExApi.Services.Interfaces;
+global using AutoMapper;
+global using EducationExApi.Data.Model.CodecoolDataModel;
+global using EducationExApi.DTO.Author;
+global using EducationExApi.Data;
+global using EducationExApi.Mapper;
+global using EducationExApi.Data.DAL.CodeCoolDataRepositories;
+global using EducationExApi.Data.DAL.CodeCoolDataRepositories.Interfaces;
+global using EducationExApi.Services;
