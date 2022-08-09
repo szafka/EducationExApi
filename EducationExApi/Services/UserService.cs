@@ -1,4 +1,4 @@
-﻿namespace EducationExApi.Services.Interfaces
+﻿namespace EducationExApi.Services
 {
     public class UserService : IUserService
     {
