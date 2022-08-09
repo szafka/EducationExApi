@@ -42,12 +42,6 @@ namespace EducationExApi.Services
             return _mapper.Map<AuthorReadDTO>(_mapper.Map<AuthorReadDTO>(author));
         }
 
-        public Task<IEnumerable<MaterialReadDTO>> GetMaterialsAverageAbove5ByAuthorIdAsync(int id)
-        {
-            var authorById = _unitOfWork.Authors.GetAuthorByIdAsync(id);
-            var materials = authorById.
-        }
-
         public async Task UpdateAuthorAsync(int id, AuthorUpdateDTO authorUpdateDTO)
         {
             var authorToUpdate = await _unitOfWork.Authors.GetAuthorByIdAsync(id);

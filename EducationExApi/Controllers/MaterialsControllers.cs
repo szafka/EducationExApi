@@ -66,12 +66,15 @@ namespace EducationExApi.Controllers
             _logger.LogInformation(NoContent().StatusCode.ToString());
             return NoContent();
         }
-        [SwaggerOperation(Summary = "Get materials with average above 5 by author id")]
-        [HttpGet("{id}/materials/{autorId}")]
-        public async Task<IEnumerable<MaterialReadDTO>> GetMaterialsAverageAbove5ByAuthorIdAsync(int id)
-        {
-            var materialsRateAbove5 = _materialService.GetMaterialsAverageAbove5ByAuthorIdAsync(id);
 
-        }
+        // TODO
+
+        //[SwaggerOperation(Summary = "Get materials with average above 5 by author id")]
+        //[HttpGet("{id}/materials/{autorId}")]
+        //public async Task<IEnumerable<MaterialReadDTO>> GetMaterialsAverageAbove5ByAuthorIdAsync(int id)
+        //{
+        //    var materialsRateAbove5 = _materialService.GetMaterialsAverageAbove5ByAuthorIdAsync(id);
+
+        //}
     }
 }
