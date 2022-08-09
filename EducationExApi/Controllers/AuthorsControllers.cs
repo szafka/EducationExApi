@@ -43,19 +43,32 @@ namespace EducationExApi.Controllers
             _logger.LogInformation(Ok().StatusCode.ToString());
             return Ok(author);
         }
-        //[SwaggerOperation(Summary = "Get author with the most materials")]
-        //[HttpGet]
-        //public async Task<IActionResult> GetAuthorMostMaterialsAsync()
-        //{
-        //    var author = _authorService.GetAuthorWithTheHighestNumbereOfMaterialsAsync();
-        //    if (author == null)
-        //    {
-        //        _logger.LogInformation(NotFound().StatusCode.ToString());
-        //        return NotFound();
-        //    }
-        //    _logger.LogInformation(Ok().StatusCode.ToString());
-        //    return Ok(author);
-        //}
+        [SwaggerOperation(Summary = "Get author with the most materials")]
+        [HttpGet("{id}/authors")]
+        public async Task<IActionResult> GetAuthorMostMaterialsAsync()
+        {
+            var author = _authorService.GetAuthorWithTheHighestNumbereOfMaterialsAsync();
+            if (author == null)
+            {
+                _logger.LogInformation(NotFound().StatusCode.ToString());
+                return NotFound();
+            }
+            _logger.LogInformation(Ok().StatusCode.ToString());
+            return Ok(author);
+        }
+        [SwaggerOperation(Summary = "Get materials with average reviews value above 5 ")]
+        [HttpGet("{id}/materials")]
+        public async Task<IActionResult> GetMaterialsAverageAbove5ByAuthorIdAsync(int id)
+        {
+            var author = _authorService.GetMaterialsAverageAbove5ByAuthorIdAsync(id);
+            if (author == null)
+            {
+                _logger.LogInformation(NotFound().StatusCode.ToString());
+                return NotFound();
+            }
+            _logger.LogInformation(Ok().StatusCode.ToString());
+            return Ok(author);
+        }
 
     }
 }

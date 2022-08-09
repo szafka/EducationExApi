@@ -1,4 +1,6 @@
-﻿namespace EducationExApi.Services
+﻿using EducationExApi.DTO.Material;
+
+namespace EducationExApi.Services
 {
     public class AuthorService : IAuthorService
     {
@@ -38,6 +40,12 @@
         {
             var author = await _unitOfWork.Authors.GetAuthorWithTheMostMaterialsAsync();
             return _mapper.Map<AuthorReadDTO>(_mapper.Map<AuthorReadDTO>(author));
+        }
+
+        public Task<IEnumerable<MaterialReadDTO>> GetMaterialsAverageAbove5ByAuthorIdAsync(int id)
+        {
+            var authorById = _unitOfWork.Authors.GetAuthorByIdAsync(id);
+            var materials = authorById.
         }
 
         public async Task UpdateAuthorAsync(int id, AuthorUpdateDTO authorUpdateDTO)

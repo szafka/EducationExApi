@@ -1,4 +1,5 @@
 ﻿using EducationExApi.DTO.Author;
+using EducationExApi.DTO.Material;
 
 namespace EducationExApi.Services.Interfaces
 {
