@@ -2,5 +2,6 @@
 {
     public interface IReviewRepository : IBaseRepository<Review>
     {
+        Task<Review> GetElementByIdAsync(int id);
     }
 }

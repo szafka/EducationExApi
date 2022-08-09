@@ -8,6 +8,6 @@
         {
             _context = context;
         }
-        public async Task GetElementByIdAsync(int id) => await _context.Reviews.FirstOrDefaultAsync(a => a.ReviewId == id);
+        public async Task<Review> GetElementByIdAsync(int id) => await _context.Reviews.FirstOrDefaultAsync(a => a.ReviewId == id);
     }
 }
