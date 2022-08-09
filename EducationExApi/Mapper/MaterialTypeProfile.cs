@@ -10,6 +10,7 @@ namespace EducationExApi.Mapper
             CreateMap<MaterialType, MaterialTypeReadDTO>();
             CreateMap<MaterialTypeCreateDTO, MaterialType>();
             CreateMap<MaterialTypeUpdateDTO, MaterialType>();
+            CreateMap<MaterialType, MaterialTypeUpdateDTO>();
         }
     }
 }

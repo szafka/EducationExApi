@@ -9,6 +9,6 @@ namespace EducationExApi.DTO.Material
         public string? Location { get; set; }
         [Required]
         [Column(TypeName = "date")]
-        public DateTime? PublicationDate { get; set; }
+        public DateOnly? PublicationDate { get; set; }
     }
 }

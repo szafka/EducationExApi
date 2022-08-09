@@ -1,4 +1,5 @@
 ﻿using EducationExApi.DTO.MaterialType;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace EducationExApi.Services
 {
@@ -10,6 +11,13 @@ namespace EducationExApi.Services
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+        }
+
+        public async Task<MaterialTypeUpdateDTO> EditMaterialTypePartialAsync(int id, JsonPatchDocument<MaterialTypeUpdateDTO> patchMaterial)
+        {
+            var materialTypeFromDB = await _unitOfWork.MaterialTypes.GetByIdAsync(id);
+            return _mapper.Map<MaterialTypeUpdateDTO>(materialTypeFromDB);
+            
         }
 
         public async Task<IEnumerable<MaterialTypeReadDTO>> GetAllMaterialTypesAsync()

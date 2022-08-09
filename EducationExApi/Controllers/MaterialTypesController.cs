@@ -1,4 +1,5 @@
 ﻿using EducationExApi.DTO.MaterialType;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace EducationExApi.Controllers
 {
@@ -51,6 +52,16 @@ namespace EducationExApi.Controllers
             }
             _logger.LogInformation(Ok().StatusCode.ToString());
             return Ok(materials);
+        }
+        [SwaggerOperation(Summary = "Update by using patch")]
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PartialCommandUpdate(int id, JsonPatchDocument<MaterialTypeUpdateDTO> patchMaterial)
+        {
+            {
+                await _materialTypeService.EditMaterialTypePartialAsync(id, patchMaterial);
+                _logger.LogInformation(NoContent().StatusCode.ToString());
+                return NoContent();
+            }
         }
     }
 }
