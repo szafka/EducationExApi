@@ -4,6 +4,6 @@ namespace EducationExApi.Services.Interfaces
 {
     public interface IUserAdminService
     {
-        Task<AdminReadDTO> GetUser(string login, string password);
+        Task<Admin> GetUser(string login, string password);
     }
 }

@@ -1,4 +1,5 @@
-﻿using EducationExApi.DTO.Material;
+﻿using EducationExApi.Data.PaginatedList;
+using EducationExApi.DTO.Material;
 
 namespace EducationExApi.Mapper
 {
@@ -13,6 +14,7 @@ namespace EducationExApi.Mapper
                 .ForMember(pd => pd.PublicationDate, opt => opt.MapFrom(pd => pd.PublicationDate));
             CreateMap<MaterialCreateDTO, Material>();
             CreateMap<MaterialUpdateDTO, Material>();
+            CreateMap<PaginatedList<Material>, PaginatedMaterialReadDTO>().ForMember(m => m.Materials, act => act.MapFrom(src => src.ToList()));
         }
     }
 }

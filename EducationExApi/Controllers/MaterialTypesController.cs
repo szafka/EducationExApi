@@ -16,32 +16,7 @@ namespace EducationExApi.Controllers
             _logger = logger;
             _materialTypeService = materialTypeService;
         }
-        [SwaggerOperation(Summary = "Get all material types")]
-        [HttpGet]
-        public async Task<IActionResult> GertAllMaterialTypes()
-        {
-            var materials = await _materialTypeService.GetAllMaterialTypesAsync();
-            if (materials == null)
-            {
-                _logger.LogInformation(NotFound().StatusCode.ToString());
-                return NotFound();
-            }
-            _logger.LogInformation(Ok().StatusCode.ToString());
-            return Ok(materials);
-        }
-        [SwaggerOperation(Summary = "Get material type by id")]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetMaterialTypeById(int id)
-        {
-            var material = await _materialTypeService.GetElementByIdAsync(id);
-            if (material == null)
-            {
-                _logger.LogInformation(NotFound().StatusCode.ToString());
-                return NotFound();
-            }
-            _logger.LogInformation(Ok().StatusCode.ToString());
-            return Ok(material);
-        }
+
         [SwaggerOperation( Summary = "Get materials by types id")]
         [HttpGet("{id}/materials")]
         public async Task<IActionResult> GetAllMaterialsByTypeId(int id)

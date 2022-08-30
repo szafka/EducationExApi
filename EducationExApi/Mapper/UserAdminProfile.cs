@@ -7,8 +7,8 @@ namespace EducationExApi.Mapper
     {
         public UserAdminProfile()
         {
-            CreateMap<AdminReadDTO, UserAdminReadDTO>();
-            CreateMap<UserAdminCreateDTO, AdminReadDTO>();
+            CreateMap<Admin, UserAdminReadDTO>();
+            CreateMap<UserAdminCreateDTO, Admin>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using EducationExApi.DTO.Review;
+﻿using EducationExApi.Data.PaginatedList;
+using EducationExApi.DTO.Review;
 using EducationExApi.Services.UnitOfWork_UserServices;
 
 namespace EducationExApi.Controllers
@@ -16,12 +17,11 @@ namespace EducationExApi.Controllers
             _userService = userServices;
         }
 
-        //cru reviews
         [SwaggerOperation(Summary = "Get all materials list")]
         [HttpGet]
-        public async Task<IActionResult> GetAllMaterialsAsync()
+        public async Task<IActionResult> GetAllMaterialsAsync([FromQuery] PaginatedListParameters paginatedListParameters)
         {
-            var materials = await _userService.MaterialService.GetAllMaterialAsync();
+            var materials = await _userService.MaterialService.GetAllMaterialsPaginatedListAsync(paginatedListParameters);
             if (materials == null)
             {
                 _logger.LogInformation(NotFound().StatusCode.ToString());
@@ -101,9 +101,9 @@ namespace EducationExApi.Controllers
         [HttpPost("AddReview")]
         public async Task<IActionResult> AddReviewAsync(ReviewCreateDTO reviewCreateDTO)
         {
-            var newReview = await _userService.ReviewService.AddNewElementAsync(reviewCreateDTO);
+            await _userService.ReviewService.AddNewElementAsync(reviewCreateDTO);
             _logger.LogInformation(Ok().StatusCode.ToString());
-            return Ok(newReview);
+            return Ok();
         }
 
         [SwaggerOperation(Summary = "Edit specific review")]

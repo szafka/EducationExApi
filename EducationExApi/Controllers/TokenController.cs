@@ -18,11 +18,9 @@ namespace EducationExApi.Controllers
             _userAdminService = userAdminService;
         }
         [HttpPost]
-        public async Task<IActionResult> Post(AdminReadDTO admin)
+        public async Task<IActionResult> Post(string login, string password)
         {
-            var login = admin.Credentials.Login;
-            var password = admin.Credentials.Password;
-            if (admin != null && login != null && password != null)
+            if (login != null && password != null)
             {
                 var user = await _userAdminService.GetUser(login, password);
                 if (user != null)
@@ -31,8 +29,9 @@ namespace EducationExApi.Controllers
                         new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                        new Claim("UserId", user.Credentials.Login.ToString()),
-                        new Claim("Name", user.Nickname)
+                        new Claim("AdminID", user.AdminId.ToString()),
+                        new Claim("Login", user.Login),
+                        new Claim("Password", user.Password),
                     };
 
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));

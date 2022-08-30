@@ -11,10 +11,10 @@ namespace EducationExApi.Services
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
-        public async Task<AdminReadDTO> GetUser(string login, string password)
+        public async Task<Admin> GetUser(string login, string password)
         {
             var admin = await _unitOfWork.Admins.GetUser(login, password);
-            return _mapper.Map<AdminReadDTO>(admin);
+            return _mapper.Map<Admin>(admin);
         }
     }
 }

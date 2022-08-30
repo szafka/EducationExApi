@@ -1,4 +1,5 @@
-﻿using EducationExApi.DTO.Material;
+﻿using EducationExApi.Data.PaginatedList;
+using EducationExApi.DTO.Material;
 
 namespace EducationExApi.Services
 {
@@ -12,11 +13,10 @@ namespace EducationExApi.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<MaterialCreateDTO> AddNewElementAsync(MaterialCreateDTO materialCreateDTO)
+        public async Task AddNewElementAsync(MaterialCreateDTO materialCreateDTO)
         {
             var newMaterial = _mapper.Map<Material>(materialCreateDTO);
-            var material = await _unitOfWork.Materials.AddAsync(newMaterial);
-            return _mapper.Map<MaterialCreateDTO>(material);
+            await _unitOfWork.Materials.AddAsync(newMaterial);
         }
 
         public async Task DeleteByIdAsync(int id)
@@ -34,8 +34,16 @@ namespace EducationExApi.Services
 
         public async Task<IEnumerable<MaterialReadDTO>> GetAllMaterialAsync()
         {
-            var materials = await _unitOfWork.Materials.GetAllAsync();
+            var materials = await _unitOfWork.Materials.GetAllMaterialsListAsync();
             return _mapper.Map<IEnumerable<Material>, IEnumerable<MaterialReadDTO>>(materials.ToList());
+        }
+
+        public async Task<PaginatedMaterialReadDTO> GetAllMaterialsPaginatedListAsync(PaginatedListParameters paginatedListParameters)
+        {
+            var materials = _unitOfWork.Materials.GetPaginatedListAllAsync();
+            var pagedMaterials = await PaginatedList<Material>.ToPagedListAsync(materials, paginatedListParameters.PageNumber, paginatedListParameters.PageSize);
+
+            return _mapper.Map<PaginatedMaterialReadDTO>(pagedMaterials);
         }
 
         public async Task<MaterialReadDTO> GetElementByIdAsync(int id)

@@ -16,41 +16,13 @@ namespace EducationExApi.Controllers
             _logger = logger;
         }
 
-        [SwaggerOperation(Summary = "Get all materials list")]
-        [HttpGet]
-        public async Task<IActionResult> GetAllMaterialsAsync()
-        {
-            var materials = await _materialService.GetAllMaterialAsync();
-            if (materials == null)
-            {
-                _logger.LogInformation(NotFound().StatusCode.ToString());
-                return NotFound();
-            }
-            _logger.LogInformation(Ok().StatusCode.ToString());
-            return Ok(materials);
-        }
-
-        [SwaggerOperation(Summary = "Get material by id")]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetMaterialById(int id)
-        {
-            var material = await _materialService.GetElementByIdAsync(id);
-            if (material == null)
-            {
-                _logger.LogInformation(NotFound().StatusCode.ToString());
-                return NotFound();
-            }
-            _logger.LogInformation(Ok().StatusCode.ToString());
-            return Ok(material);
-        }
-
         [SwaggerOperation(Summary = "Add new material")]
         [HttpPost]
         public async Task<IActionResult> AddMaterialAsync(MaterialCreateDTO materialCreateDTO)
         {
-            var newMaterial = await _materialService.AddNewElementAsync(materialCreateDTO);
+            await _materialService.AddNewElementAsync(materialCreateDTO);
             _logger.LogInformation(Ok().StatusCode.ToString());
-            return Ok(newMaterial);
+            return Ok();
         }
         [SwaggerOperation(Summary = "Delete material by id")]
         [HttpDelete("{id}")]

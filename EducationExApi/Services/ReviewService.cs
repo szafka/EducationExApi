@@ -12,11 +12,10 @@ namespace EducationExApi.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ReviewCreateDTO> AddNewElementAsync(ReviewCreateDTO reviewCreateDTO)
+        public async Task AddNewElementAsync(ReviewCreateDTO reviewCreateDTO)
         {
             var newReview = _mapper.Map<Review>(reviewCreateDTO);
-            var review = await _unitOfWork.Reviews.AddAsync(newReview);
-            return _mapper.Map<ReviewCreateDTO>(review);
+            await _unitOfWork.Reviews.AddAsync(newReview);
         }
 
         public async Task DeleteByIdAsync(int id)

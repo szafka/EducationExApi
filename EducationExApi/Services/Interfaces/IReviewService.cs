@@ -6,7 +6,7 @@ namespace EducationExApi.Services.Interfaces
     {
         Task<IEnumerable<ReviewReadDTO>> GetAllReviewAsync();
         Task<ReviewReadDTO> GetElementByIdAsync(int id);
-        Task<ReviewCreateDTO> AddNewElementAsync(ReviewCreateDTO reviewCreateDTO);
+        Task AddNewElementAsync(ReviewCreateDTO reviewCreateDTO);
         Task DeleteByIdAsync(int id);
         Task EditReviewlAsync(int id, ReviewUpdateDTO reviewDTO);
     }
