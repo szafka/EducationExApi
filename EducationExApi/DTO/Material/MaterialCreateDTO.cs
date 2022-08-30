@@ -14,6 +14,6 @@
         public string? Location { get; set; }
         public DateTime? PublicationDate { get; set; }
         public int AuthorId { get; set; }
-        public int TypeId { get; set; }
+        public int MaterialTypeId { get; set; }
     }
 }
