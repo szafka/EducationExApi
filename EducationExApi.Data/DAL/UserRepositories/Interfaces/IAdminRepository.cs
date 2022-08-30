@@ -2,6 +2,6 @@
 {
     public interface IAdminRepository
     {
-        Task<AdminReadDTO> GetUser(string login, string password);
+        Task<Admin> GetUser(string login, string password);
     }
 }

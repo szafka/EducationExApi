@@ -4,9 +4,7 @@ namespace EducationExApi.Data.Model.API_Context
 {
     public class API_Context : DbContext
     {
-        public DbSet<User>? Users { get; set; }
-        public DbSet<AdminReadDTO>? Admins { get; set; }
-        public DbSet<BaseUser>? BaseUsers { get; set; }
+        public DbSet<Admin>? Admins { get; set; }
         public DbSet<Author>? Authors { get; set; }
         public DbSet<Material>? Materials { get; set; }
         public DbSet<MaterialType>? MaterialTypes { get; set; }
@@ -24,6 +22,9 @@ namespace EducationExApi.Data.Model.API_Context
             modelBuilder.Entity<Material>()
                         .Property(p => p.PublicationDate)
                         .HasColumnType("date");
+
+
+
             modelBuilder.SeedDatabase();
         }
     }

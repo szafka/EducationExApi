@@ -31,9 +31,11 @@ namespace EducationExApi.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AuthorId"), 1L, 1);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AuthorId");
@@ -79,9 +81,11 @@ namespace EducationExApi.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MaterialTypeId")
@@ -91,6 +95,7 @@ namespace EducationExApi.Data.Migrations
                         .HasColumnType("date");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MaterialId");
@@ -355,7 +360,7 @@ namespace EducationExApi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReviewId"), 1L, 1);
 
-                    b.Property<int?>("BaseUseruserId")
+                    b.Property<int?>("AdminId")
                         .HasColumnType("int");
 
                     b.Property<int>("MaterialId")
@@ -370,44 +375,38 @@ namespace EducationExApi.Data.Migrations
 
                     b.HasKey("ReviewId");
 
-                    b.HasIndex("BaseUseruserId");
+                    b.HasIndex("AdminId");
 
                     b.HasIndex("MaterialId");
 
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("EducationExApi.Data.Model.UsersModel.BaseUser", b =>
+            modelBuilder.Entity("EducationExApi.Data.Model.UsersModel.Admin", b =>
                 {
-                    b.Property<int>("userId")
+                    b.Property<int>("AdminId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("userId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdminId"), 1L, 1);
 
-                    b.Property<Guid?>("CredentialsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
+                    b.Property<string>("Login")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Nickname")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("AdminId");
 
-                    b.Property<string>("Surname")
-                        .HasColumnType("nvarchar(max)");
+                    b.ToTable("Admins");
 
-                    b.HasKey("userId");
-
-                    b.HasIndex("CredentialsId");
-
-                    b.ToTable("BaseUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("BaseUser");
+                    b.HasData(
+                        new
+                        {
+                            AdminId = 1,
+                            Login = "admin",
+                            Password = "admin"
+                        });
                 });
 
             modelBuilder.Entity("EducationExApi.Data.Model.UsersModel.CredentialsContainer", b =>
@@ -431,30 +430,6 @@ namespace EducationExApi.Data.Migrations
                     b.HasKey("CredentialsId");
 
                     b.ToTable("CredentialsContainers");
-
-                    b.HasData(
-                        new
-                        {
-                            CredentialsId = new Guid("ac0b5af3-7368-414a-b40c-ccb9c97adeae"),
-                            Login = "admin",
-                            Password = "admin",
-                            PasswordHash = new byte[] { 233, 99, 4, 85, 217, 129, 48, 179, 169, 253, 34, 195, 73, 92, 164, 91, 177, 222, 45, 232, 195, 61, 18, 39, 117, 0, 89, 238, 164, 88, 210, 228, 54, 130, 11, 131, 229, 11, 189, 231, 32, 106, 160, 149, 184, 56, 76, 111, 177, 87, 226, 226, 224, 135, 105, 171, 219, 48, 44, 195, 244, 89, 61, 210 },
-                            PasswordSalt = new byte[] { 155, 98, 207, 78, 105, 140, 243, 229, 95, 56, 39, 98, 203, 249, 177, 128, 180, 243, 232, 111, 49, 213, 145, 207, 61, 112, 105, 132, 88, 235, 139, 52, 164, 4, 174, 115, 0, 27, 140, 36, 164, 202, 76, 184, 3, 146, 155, 205, 234, 65, 78, 189, 170, 175, 45, 37, 145, 252, 130, 136, 164, 253, 162, 67, 130, 64, 170, 191, 145, 79, 13, 52, 241, 9, 215, 96, 51, 115, 162, 111, 156, 47, 165, 102, 112, 21, 32, 152, 138, 32, 139, 80, 34, 115, 51, 139, 165, 201, 39, 240, 22, 137, 220, 62, 50, 137, 217, 171, 95, 160, 33, 148, 86, 187, 71, 247, 131, 84, 34, 228, 215, 135, 116, 100, 152, 213, 139, 233 }
-                        });
-                });
-
-            modelBuilder.Entity("EducationExApi.Data.Model.UsersModel.AdminReadDTO", b =>
-                {
-                    b.HasBaseType("EducationExApi.Data.Model.UsersModel.BaseUser");
-
-                    b.HasDiscriminator().HasValue("AdminReadDTO");
-                });
-
-            modelBuilder.Entity("EducationExApi.Data.Model.UsersModel.User", b =>
-                {
-                    b.HasBaseType("EducationExApi.Data.Model.UsersModel.BaseUser");
-
-                    b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("EducationExApi.Data.Model.CodecoolDataModel.Material", b =>
@@ -478,9 +453,9 @@ namespace EducationExApi.Data.Migrations
 
             modelBuilder.Entity("EducationExApi.Data.Model.CodecoolDataModel.Review", b =>
                 {
-                    b.HasOne("EducationExApi.Data.Model.UsersModel.BaseUser", null)
+                    b.HasOne("EducationExApi.Data.Model.UsersModel.Admin", null)
                         .WithMany("Reviews")
-                        .HasForeignKey("BaseUseruserId");
+                        .HasForeignKey("AdminId");
 
                     b.HasOne("EducationExApi.Data.Model.CodecoolDataModel.Material", "Material")
                         .WithMany("Reviews")
@@ -489,15 +464,6 @@ namespace EducationExApi.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Material");
-                });
-
-            modelBuilder.Entity("EducationExApi.Data.Model.UsersModel.BaseUser", b =>
-                {
-                    b.HasOne("EducationExApi.Data.Model.UsersModel.CredentialsContainer", "Credentials")
-                        .WithMany()
-                        .HasForeignKey("CredentialsId");
-
-                    b.Navigation("Credentials");
                 });
 
             modelBuilder.Entity("EducationExApi.Data.Model.CodecoolDataModel.Author", b =>
@@ -515,7 +481,7 @@ namespace EducationExApi.Data.Migrations
                     b.Navigation("Materials");
                 });
 
-            modelBuilder.Entity("EducationExApi.Data.Model.UsersModel.BaseUser", b =>
+            modelBuilder.Entity("EducationExApi.Data.Model.UsersModel.Admin", b =>
                 {
                     b.Navigation("Reviews");
                 });

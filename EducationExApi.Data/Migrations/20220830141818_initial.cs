@@ -10,13 +10,27 @@ namespace EducationExApi.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Admins",
+                columns: table => new
+                {
+                    AdminId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Login = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Admins", x => x.AdminId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Authors",
                 columns: table => new
                 {
                     AuthorId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,36 +67,14 @@ namespace EducationExApi.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BaseUsers",
-                columns: table => new
-                {
-                    userId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Nickname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CredentialsId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BaseUsers", x => x.userId);
-                    table.ForeignKey(
-                        name: "FK_BaseUsers_CredentialsContainers_CredentialsId",
-                        column: x => x.CredentialsId,
-                        principalTable: "CredentialsContainers",
-                        principalColumn: "CredentialsId");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Materials",
                 columns: table => new
                 {
                     MaterialId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PublicationDate = table.Column<DateTime>(type: "date", nullable: false),
                     AuthorId = table.Column<int>(type: "int", nullable: false),
                     MaterialTypeId = table.Column<int>(type: "int", nullable: false)
@@ -113,16 +105,16 @@ namespace EducationExApi.Data.Migrations
                     ReviewText = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MaterialId = table.Column<int>(type: "int", nullable: false),
                     Rate = table.Column<int>(type: "int", nullable: false),
-                    BaseUseruserId = table.Column<int>(type: "int", nullable: true)
+                    AdminId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reviews", x => x.ReviewId);
                     table.ForeignKey(
-                        name: "FK_Reviews_BaseUsers_BaseUseruserId",
-                        column: x => x.BaseUseruserId,
-                        principalTable: "BaseUsers",
-                        principalColumn: "userId");
+                        name: "FK_Reviews_Admins_AdminId",
+                        column: x => x.AdminId,
+                        principalTable: "Admins",
+                        principalColumn: "AdminId");
                     table.ForeignKey(
                         name: "FK_Reviews_Materials_MaterialId",
                         column: x => x.MaterialId,
@@ -130,6 +122,11 @@ namespace EducationExApi.Data.Migrations
                         principalColumn: "MaterialId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Admins",
+                columns: new[] { "AdminId", "Login", "Password" },
+                values: new object[] { 1, "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "Authors",
@@ -141,11 +138,6 @@ namespace EducationExApi.Data.Migrations
                     { 3, "Actor, pirate", "Johny Deep" },
                     { 4, "Galactic rider of yellow magnetic star", "Szafarz" }
                 });
-
-            migrationBuilder.InsertData(
-                table: "CredentialsContainers",
-                columns: new[] { "CredentialsId", "Login", "Password", "PasswordHash", "PasswordSalt" },
-                values: new object[] { new Guid("ac0b5af3-7368-414a-b40c-ccb9c97adeae"), "admin", "admin", new byte[] { 233, 99, 4, 85, 217, 129, 48, 179, 169, 253, 34, 195, 73, 92, 164, 91, 177, 222, 45, 232, 195, 61, 18, 39, 117, 0, 89, 238, 164, 88, 210, 228, 54, 130, 11, 131, 229, 11, 189, 231, 32, 106, 160, 149, 184, 56, 76, 111, 177, 87, 226, 226, 224, 135, 105, 171, 219, 48, 44, 195, 244, 89, 61, 210 }, new byte[] { 155, 98, 207, 78, 105, 140, 243, 229, 95, 56, 39, 98, 203, 249, 177, 128, 180, 243, 232, 111, 49, 213, 145, 207, 61, 112, 105, 132, 88, 235, 139, 52, 164, 4, 174, 115, 0, 27, 140, 36, 164, 202, 76, 184, 3, 146, 155, 205, 234, 65, 78, 189, 170, 175, 45, 37, 145, 252, 130, 136, 164, 253, 162, 67, 130, 64, 170, 191, 145, 79, 13, 52, 241, 9, 215, 96, 51, 115, 162, 111, 156, 47, 165, 102, 112, 21, 32, 152, 138, 32, 139, 80, 34, 115, 51, 139, 165, 201, 39, 240, 22, 137, 220, 62, 50, 137, 217, 171, 95, 160, 33, 148, 86, 187, 71, 247, 131, 84, 34, 228, 215, 135, 116, 100, 152, 213, 139, 233 } });
 
             migrationBuilder.InsertData(
                 table: "MaterialTypes",
@@ -187,11 +179,6 @@ namespace EducationExApi.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BaseUsers_CredentialsId",
-                table: "BaseUsers",
-                column: "CredentialsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Materials_AuthorId",
                 table: "Materials",
                 column: "AuthorId");
@@ -202,9 +189,9 @@ namespace EducationExApi.Data.Migrations
                 column: "MaterialTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reviews_BaseUseruserId",
+                name: "IX_Reviews_AdminId",
                 table: "Reviews",
-                column: "BaseUseruserId");
+                column: "AdminId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_MaterialId",
@@ -215,16 +202,16 @@ namespace EducationExApi.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "CredentialsContainers");
+
+            migrationBuilder.DropTable(
                 name: "Reviews");
 
             migrationBuilder.DropTable(
-                name: "BaseUsers");
+                name: "Admins");
 
             migrationBuilder.DropTable(
                 name: "Materials");
-
-            migrationBuilder.DropTable(
-                name: "CredentialsContainers");
 
             migrationBuilder.DropTable(
                 name: "Authors");
